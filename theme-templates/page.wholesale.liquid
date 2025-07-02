@@ -1,0 +1,351 @@
+{% comment %}
+  Wholesale Page Template
+  This template should be uploaded to your theme as: templates/page.wholesale.liquid
+  
+  Instructions:
+  1. Go to Shopify Admin > Online Store > Themes
+  2. Click "Actions" > "Edit code"
+  3. In the Templates section, add a new template called "page.wholesale.liquid"
+  4. Copy and paste this code
+  5. Create a new page in Admin > Online Store > Pages
+  6. Set the template to "page.wholesale"
+{% endcomment %}
+
+{% comment %} Check if customer is logged in and has wholesale access {% endcomment %}
+{% unless customer %}
+  {% comment %} Not logged in - redirect to login {% endcomment %}
+  <script>
+    window.location.href = '/account/login?return_url={{ page.url | url_encode }}';
+  </script>
+  <div class="wholesale-login-required">
+    <h2>Please Log In</h2>
+    <p>You must be logged in to access the wholesale section.</p>
+    <a href="/account/login?return_url={{ page.url | url_encode }}" class="btn">Log In</a>
+  </div>
+{% else %}
+  {% comment %} Customer is logged in - check wholesale status {% endcomment %}
+  {% if customer.tags contains 'wholesale' %}
+    {% comment %} Approved wholesale customer - show wholesale content {% endcomment %}
+    
+    <div class="wholesale-page">
+      <header class="wholesale-header">
+        <h1>{{ page.title | default: 'Wholesale Portal' }}</h1>
+        <p class="wholesale-welcome">Welcome back, {{ customer.first_name }}!</p>
+        <div class="wholesale-benefits">
+          <h3>Your Wholesale Benefits:</h3>
+          <ul>
+            <li>🎯 <strong>10% off</strong> on orders of 10-49 units</li>
+            <li>🎯 <strong>15% off</strong> on orders of 50-199 units</li>
+            <li>🎯 <strong>20% off</strong> on orders of 200+ units</li>
+            <li>📦 Priority shipping and handling</li>
+            <li>🤝 Dedicated wholesale support</li>
+          </ul>
+        </div>
+      </header>
+
+      {% comment %} Wholesale Product Grid {% endcomment %}
+      <section class="wholesale-products">
+        <h2>Wholesale Products</h2>
+        <div class="product-grid">
+          {% for product in collections.wholesale.products limit: 12 %}
+            <div class="product-card">
+              <a href="{{ product.url }}">
+                {% if product.featured_image %}
+                  <img src="{{ product.featured_image | img_url: '300x300' }}" 
+                       alt="{{ product.title }}" 
+                       loading="lazy">
+                {% endif %}
+                
+                <div class="product-info">
+                  <h3>{{ product.title }}</h3>
+                  <div class="pricing-info">
+                    <p class="retail-price">Retail: {{ product.price | money }}</p>
+                    <div class="wholesale-pricing">
+                      <p><strong>Wholesale Pricing:</strong></p>
+                      <ul class="pricing-tiers">
+                        <li>10-49 units: {{ product.price | times: 0.9 | money }} each</li>
+                        <li>50-199 units: {{ product.price | times: 0.85 | money }} each</li>
+                        <li>200+ units: {{ product.price | times: 0.8 | money }} each</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  {% comment %} Quick Add Form {% endcomment %}
+                  <form action="/cart/add" method="post" class="wholesale-add-form">
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                    <div class="quantity-input">
+                      <label for="quantity-{{ product.id }}">Quantity:</label>
+                      <input type="number" 
+                             id="quantity-{{ product.id }}"
+                             name="quantity" 
+                             value="10" 
+                             min="10" 
+                             step="1">
+                    </div>
+                    <button type="submit" class="btn wholesale-add-btn">Add to Cart</button>
+                  </form>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+        
+        {% if collections.wholesale.products.size == 0 %}
+          <div class="no-products">
+            <p>No wholesale products available at the moment. Please check back later.</p>
+          </div>
+        {% endif %}
+      </section>
+
+      {% comment %} Order History Section {% endcomment %}
+      <section class="wholesale-orders">
+        <h2>Your Recent Orders</h2>
+        {% if customer.orders.size > 0 %}
+          <div class="orders-list">
+            {% for order in customer.orders limit: 5 %}
+              <div class="order-item">
+                <div class="order-header">
+                  <h4>Order #{{ order.name }}</h4>
+                  <span class="order-date">{{ order.created_at | date: '%B %d, %Y' }}</span>
+                </div>
+                <div class="order-details">
+                  <p><strong>Total:</strong> {{ order.total_price | money }}</p>
+                  <p><strong>Status:</strong> {{ order.financial_status | capitalize }}</p>
+                  <a href="{{ order.customer_url }}" class="view-order">View Details</a>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p>No orders yet. Start shopping to see your order history here!</p>
+        {% endif %}
+      </section>
+
+      {% comment %} Contact Information {% endcomment %}
+      <section class="wholesale-contact">
+        <h2>Need Help?</h2>
+        <div class="contact-info">
+          <p>For wholesale inquiries, bulk orders, or custom pricing:</p>
+          <ul>
+            <li>📧 Email: wholesale@{{ shop.domain }}</li>
+            <li>📞 Phone: [Your wholesale phone number]</li>
+            <li>⏰ Business Hours: Monday-Friday, 9 AM - 5 PM</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <style>
+      .wholesale-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+      
+      .wholesale-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+      }
+      
+      .wholesale-benefits ul {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      
+      .wholesale-benefits li {
+        background: white;
+        padding: 1rem;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      
+      .product-card {
+        border: 1px solid #e1e1e1;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.2s;
+      }
+      
+      .product-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+      
+      .product-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      
+      .product-info {
+        padding: 1rem;
+      }
+      
+      .pricing-tiers {
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+        padding-left: 1rem;
+      }
+      
+      .wholesale-add-form {
+        margin-top: 1rem;
+        display: flex;
+        align-items: end;
+        gap: 1rem;
+      }
+      
+      .quantity-input {
+        flex: 1;
+      }
+      
+      .quantity-input input {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      
+      .wholesale-add-btn {
+        background: #2c5aa0;
+        color: white;
+        border: none;
+        padding: 0.75rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      
+      .orders-list {
+        display: grid;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      
+      .order-item {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .wholesale-contact {
+        background: #e8f4f8;
+        padding: 2rem;
+        border-radius: 8px;
+        margin-top: 3rem;
+      }
+      
+      .contact-info ul {
+        list-style: none;
+        padding: 0;
+      }
+      
+      .contact-info li {
+        margin: 0.5rem 0;
+      }
+      
+      @media (max-width: 768px) {
+        .product-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .wholesale-add-form {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        
+        .order-item {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+    </style>
+
+  {% elsif customer.tags contains 'wholesale_pending' %}
+    {% comment %} Pending approval status {% endcomment %}
+    <div class="wholesale-pending">
+      <div class="pending-message">
+        <h2>🕐 Application Under Review</h2>
+        <p>Thank you for your wholesale application, {{ customer.first_name }}!</p>
+        <p>Your application is currently being reviewed by our team. We typically process applications within 1-2 business days.</p>
+        
+        <div class="next-steps">
+          <h3>What happens next?</h3>
+          <ul>
+            <li>✅ We'll review your business information</li>
+            <li>📧 You'll receive an email notification with our decision</li>
+            <li>🛍️ If approved, you'll gain immediate access to wholesale pricing</li>
+          </ul>
+        </div>
+        
+        <div class="contact-support">
+          <p>Questions about your application?</p>
+          <a href="mailto:wholesale@{{ shop.domain }}" class="btn">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .wholesale-pending {
+        max-width: 600px;
+        margin: 3rem auto;
+        padding: 2rem;
+        text-align: center;
+      }
+      
+      .pending-message {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 8px;
+        padding: 2rem;
+      }
+      
+      .next-steps ul {
+        text-align: left;
+        max-width: 400px;
+        margin: 1rem auto;
+      }
+      
+      .contact-support {
+        margin-top: 2rem;
+      }
+      
+      .btn {
+        display: inline-block;
+        background: #2c5aa0;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 1rem;
+      }
+    </style>
+
+  {% else %}
+    {% comment %} Not a wholesale customer - redirect to registration {% endcomment %}
+    <script>
+      window.location.href = '/pages/wholesale-register';
+    </script>
+    <div class="wholesale-registration-prompt">
+      <h2>Wholesale Registration Required</h2>
+      <p>To access our wholesale portal, you need to apply for wholesale pricing.</p>
+      <a href="/pages/wholesale-register" class="btn">Apply for Wholesale Access</a>
+    </div>
+  {% endif %}
+{% endunless %}

@@ -1,0 +1,12 @@
+name = "wholesale-pricing"
+type = "function"
+
+[build]
+command = "make build"
+path = "dist/index.wasm"
+
+[extensions.function]
+type = "order_discounts"
+
+[input]
+variables = true

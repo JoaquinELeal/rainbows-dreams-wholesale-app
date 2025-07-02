@@ -1,0 +1,402 @@
+{% comment %}
+  Public Wholesale Registration Page Template
+  This template should be uploaded to your theme as: templates/page.wholesale-register.liquid
+  
+  Instructions:
+  1. Upload this as templates/page.wholesale-register.liquid in your theme
+  2. Create a new page in Admin > Online Store > Pages with handle "wholesale-register"
+  3. Set the template to "page.wholesale-register"
+  4. Update the form action URL to point to your app's registration endpoint
+{% endcomment %}
+
+<div class="wholesale-registration-page">
+  <div class="registration-container">
+    <header class="registration-header">
+      <h1>{{ page.title | default: 'Apply for Wholesale Access' }}</h1>
+      <p class="subtitle">Join our wholesale program and unlock exclusive pricing</p>
+    </header>
+
+    <div class="benefits-section">
+      <h2>Wholesale Benefits</h2>
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <div class="benefit-icon">💰</div>
+          <h3>Tiered Pricing</h3>
+          <ul>
+            <li>10-49 units: <strong>10% off</strong></li>
+            <li>50-199 units: <strong>15% off</strong></li>
+            <li>200+ units: <strong>20% off</strong></li>
+          </ul>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🚚</div>
+          <h3>Priority Shipping</h3>
+          <p>Faster processing and dedicated shipping lanes for wholesale orders</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🤝</div>
+          <h3>Dedicated Support</h3>
+          <p>Direct access to our wholesale team for personalized assistance</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">📦</div>
+          <h3>Bulk Ordering</h3>
+          <p>Streamlined ordering process designed for larger quantities</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="registration-form-section">
+      <h2>Application Form</h2>
+      <p>Please provide your business information to apply for wholesale access:</p>
+      
+      {% comment %} 
+        Update this action URL to point to your app's registration endpoint
+        You may need to use an app proxy URL like: https://your-app.herokuapp.com/wholesale/register
+      {% endcomment %}
+      <form action="/apps/wholesale/register" method="post" class="wholesale-registration-form" id="wholesaleForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName" class="required">First Name</label>
+            <input type="text" id="firstName" name="firstName" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName" class="required">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="required">Email Address</label>
+          <input type="email" id="email" name="email" required>
+          <small>This will be your login email for the wholesale portal</small>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="companyName" class="required">Company Name</label>
+            <input type="text" id="companyName" name="companyName" required>
+          </div>
+          <div class="form-group">
+            <label for="website">Company Website</label>
+            <input type="url" id="website" name="website" placeholder="https://">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="businessType" class="required">Business Type</label>
+          <select id="businessType" name="businessType" required>
+            <option value="">Select business type...</option>
+            <option value="retailer">Retailer</option>
+            <option value="distributor">Distributor</option>
+            <option value="reseller">Reseller</option>
+            <option value="corporation">Corporation</option>
+            <option value="non-profit">Non-Profit</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="businessAddress" class="required">Business Address</label>
+          <textarea id="businessAddress" name="businessAddress" rows="3" required placeholder="Full business address including city, state, and zip code"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="taxId">Tax ID / Business License Number</label>
+          <input type="text" id="taxId" name="taxId">
+          <small>Optional but helps with verification</small>
+        </div>
+
+        <div class="form-group">
+          <label for="expectedVolume" class="required">Expected Monthly Order Volume</label>
+          <select id="expectedVolume" name="expectedVolume" required>
+            <option value="">Select expected volume...</option>
+            <option value="10-50">10-50 units</option>
+            <option value="50-100">50-100 units</option>
+            <option value="100-500">100-500 units</option>
+            <option value="500-1000">500-1,000 units</option>
+            <option value="1000+">1,000+ units</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="businessDescription" class="required">Business Description</label>
+          <textarea id="businessDescription" name="businessDescription" rows="4" required placeholder="Tell us about your business, target market, and why you'd like to become a wholesale partner..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="hearAboutUs">How did you hear about us?</label>
+          <select id="hearAboutUs" name="hearAboutUs">
+            <option value="">Select...</option>
+            <option value="search">Search Engine</option>
+            <option value="social">Social Media</option>
+            <option value="referral">Referral</option>
+            <option value="trade-show">Trade Show</option>
+            <option value="advertisement">Advertisement</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+            <span class="checkmark"></span>
+            I agree to the <a href="/pages/wholesale-terms" target="_blank">wholesale terms and conditions</a> and understand that my application is subject to approval.
+          </label>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="subscribeUpdates" name="subscribeUpdates">
+            <span class="checkmark"></span>
+            I would like to receive updates about new products and wholesale promotions.
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="btn-text">Submit Application</span>
+            <span class="btn-loading" style="display: none;">Submitting...</span>
+          </button>
+        </div>
+
+        <div class="form-info">
+          <p><strong>Processing Time:</strong> Applications are typically reviewed within 1-2 business days. You'll receive an email notification once your application has been processed.</p>
+        </div>
+      </form>
+    </div>
+
+    <div class="contact-section">
+      <h2>Questions?</h2>
+      <p>If you have any questions about our wholesale program, please don't hesitate to reach out:</p>
+      <div class="contact-info">
+        <p>📧 <a href="mailto:wholesale@{{ shop.domain }}">wholesale@{{ shop.domain }}</a></p>
+        <p>📞 [Your wholesale phone number]</p>
+        <p>⏰ Business Hours: Monday-Friday, 9 AM - 5 PM</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .wholesale-registration-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  .registration-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .registration-header h1 {
+    color: #2c5aa0;
+    margin-bottom: 0.5rem;
+  }
+  
+  .subtitle {
+    color: #666;
+    font-size: 1.1rem;
+  }
+  
+  .benefits-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 3rem;
+  }
+  
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  .benefit-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 6px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .benefit-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .benefit-item h3 {
+    margin-bottom: 0.5rem;
+    color: #2c5aa0;
+  }
+  
+  .benefit-item ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .benefit-item li {
+    margin: 0.25rem 0;
+  }
+  
+  .registration-form-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 3rem;
+  }
+  
+  .wholesale-registration-form {
+    margin-top: 2rem;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .form-group label.required::after {
+    content: ' *';
+    color: #e74c3c;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #2c5aa0;
+    box-shadow: 0 0 0 2px rgba(44, 90, 160, 0.1);
+  }
+  
+  .form-group small {
+    display: block;
+    margin-top: 0.25rem;
+    color: #666;
+    font-size: 0.875rem;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: normal;
+  }
+  
+  .checkbox-label input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+  }
+  
+  .form-actions {
+    text-align: center;
+    margin: 2rem 0;
+  }
+  
+  .submit-btn {
+    background: #2c5aa0;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    min-width: 200px;
+  }
+  
+  .submit-btn:hover {
+    background: #1e3d6f;
+  }
+  
+  .submit-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .form-info {
+    background: #e8f4f8;
+    padding: 1rem;
+    border-radius: 4px;
+    text-align: center;
+  }
+  
+  .contact-section {
+    text-align: center;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+  
+  .contact-info p {
+    margin: 0.5rem 0;
+  }
+  
+  @media (max-width: 768px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+    
+    .benefits-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .wholesale-registration-page {
+      padding: 1rem 0.5rem;
+    }
+  }
+</style>
+
+<script>
+  document.getElementById('wholesaleForm').addEventListener('submit', function(e) {
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnLoading = submitBtn.querySelector('.btn-loading');
+    
+    // Show loading state
+    btnText.style.display = 'none';
+    btnLoading.style.display = 'inline';
+    submitBtn.disabled = true;
+    
+    // Note: Form will submit normally, loading state is just for UX
+  });
+</script>

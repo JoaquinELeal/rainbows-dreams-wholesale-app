@@ -1,0 +1,370 @@
+{% comment %}
+  Wholesale Registration Confirmation Page Template
+  This template should be uploaded to your theme as: templates/page.wholesale-confirmation.liquid
+  
+  Instructions:
+  1. Upload this as templates/page.wholesale-confirmation.liquid in your theme
+  2. Create a new page in Admin > Online Store > Pages with handle "wholesale-confirmation"
+  3. Set the template to "page.wholesale-confirmation"
+{% endcomment %}
+
+<div class="wholesale-confirmation-page">
+  <div class="confirmation-container">
+    <div class="success-icon">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" fill="#10B981"/>
+        <path d="m9 12 2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <h1>{{ page.title | default: 'Application Submitted Successfully!' }}</h1>
+    
+    <div class="confirmation-message">
+      <p class="lead">Thank you for your interest in our wholesale program!</p>
+      <p>Your application has been successfully submitted and is now under review.</p>
+    </div>
+
+    <div class="next-steps">
+      <h2>What Happens Next?</h2>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Review Process</h3>
+            <p>Our team will carefully review your application and business information within 1-2 business days.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Email Notification</h3>
+            <p>You'll receive an email notification with our decision and next steps for your account.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Wholesale Access</h3>
+            <p>If approved, you'll immediately gain access to wholesale pricing and the wholesale portal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="benefits-reminder">
+      <h2>Your Wholesale Benefits (When Approved)</h2>
+      <div class="benefits-list">
+        <div class="benefit">
+          <span class="benefit-icon">💰</span>
+          <div>
+            <strong>Tiered Discounts:</strong>
+            <ul>
+              <li>10-49 units: 10% off</li>
+              <li>50-199 units: 15% off</li>
+              <li>200+ units: 20% off</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="benefit">
+          <span class="benefit-icon">🚚</span>
+          <div>
+            <strong>Priority Shipping:</strong> Faster processing and dedicated shipping lanes
+          </div>
+        </div>
+        
+        <div class="benefit">
+          <span class="benefit-icon">🤝</span>
+          <div>
+            <strong>Dedicated Support:</strong> Direct access to our wholesale team
+          </div>
+        </div>
+        
+        <div class="benefit">
+          <span class="benefit-icon">📦</span>
+          <div>
+            <strong>Bulk Ordering:</strong> Streamlined process for larger quantities
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-info">
+      <h2>Questions About Your Application?</h2>
+      <p>If you have any questions or need to update your application, please contact our wholesale team:</p>
+      
+      <div class="contact-details">
+        <div class="contact-item">
+          <span class="contact-icon">📧</span>
+          <a href="mailto:wholesale@{{ shop.domain }}">wholesale@{{ shop.domain }}</a>
+        </div>
+        
+        <div class="contact-item">
+          <span class="contact-icon">📞</span>
+          <span>[Your wholesale phone number]</span>
+        </div>
+        
+        <div class="contact-item">
+          <span class="contact-icon">⏰</span>
+          <span>Business Hours: Monday-Friday, 9 AM - 5 PM</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <a href="{{ routes.root_url }}" class="btn btn-primary">Continue Shopping</a>
+      <a href="/pages/wholesale" class="btn btn-secondary">Wholesale Info</a>
+    </div>
+
+    <div class="application-reference">
+      <p><small>
+        Application submitted on {{ 'now' | date: '%B %d, %Y at %I:%M %p' }}.
+        Please keep this page for your records.
+      </small></p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .wholesale-confirmation-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    text-align: center;
+  }
+
+  .confirmation-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 3rem 2rem;
+  }
+
+  .success-icon {
+    margin-bottom: 2rem;
+  }
+
+  .confirmation-container h1 {
+    color: #10B981;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+  }
+
+  .confirmation-message {
+    margin-bottom: 3rem;
+  }
+
+  .lead {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 1rem;
+  }
+
+  .next-steps {
+    margin-bottom: 3rem;
+    text-align: left;
+  }
+
+  .next-steps h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #1F2937;
+  }
+
+  .steps-grid {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: #F9FAFB;
+    border-radius: 8px;
+  }
+
+  .step-number {
+    background: #3B82F6;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .step-content h3 {
+    margin: 0 0 0.5rem 0;
+    color: #1F2937;
+  }
+
+  .step-content p {
+    margin: 0;
+    color: #6B7280;
+    line-height: 1.5;
+  }
+
+  .benefits-reminder {
+    margin-bottom: 3rem;
+    text-align: left;
+  }
+
+  .benefits-reminder h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #1F2937;
+  }
+
+  .benefits-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    background: #FEF3E3;
+    border-radius: 6px;
+  }
+
+  .benefit-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .benefit ul {
+    margin: 0.5rem 0 0 0;
+    padding-left: 1rem;
+  }
+
+  .benefit li {
+    margin: 0.25rem 0;
+  }
+
+  .contact-info {
+    margin-bottom: 3rem;
+    text-align: left;
+  }
+
+  .contact-info h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #1F2937;
+  }
+
+  .contact-info > p {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #6B7280;
+  }
+
+  .contact-details {
+    display: grid;
+    gap: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #F3F4F6;
+    border-radius: 6px;
+  }
+
+  .contact-icon {
+    font-size: 1.25rem;
+  }
+
+  .contact-item a {
+    color: #3B82F6;
+    text-decoration: none;
+  }
+
+  .contact-item a:hover {
+    text-decoration: underline;
+  }
+
+  .action-buttons {
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: #3B82F6;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #2563EB;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: #F3F4F6;
+    color: #374151;
+    border: 1px solid #D1D5DB;
+  }
+
+  .btn-secondary:hover {
+    background: #E5E7EB;
+    transform: translateY(-1px);
+  }
+
+  .application-reference {
+    padding-top: 2rem;
+    border-top: 1px solid #E5E7EB;
+    color: #6B7280;
+  }
+
+  @media (max-width: 768px) {
+    .wholesale-confirmation-page {
+      padding: 2rem 0.5rem;
+    }
+
+    .confirmation-container {
+      padding: 2rem 1rem;
+    }
+
+    .confirmation-container h1 {
+      font-size: 2rem;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn {
+      width: 100%;
+      max-width: 300px;
+      text-align: center;
+    }
+  }
+</style>
