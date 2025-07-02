@@ -4,22 +4,26 @@ This guide covers the complete setup of both the Shopify app and the theme integ
 
 ## Part 1: Shopify App Setup
 
-### 1. Environment Configuration
+### 1. Environment Configuration ✅ PARTIALLY COMPLETE
+
+✅ **Shopify App Credentials**: Already configured
+- Client ID: `b1b6cbd8ca25aeed3429ede3631985b7`
+- Client Secret: `d6911e5bcce0ad5cb91c634177bd8882`
+
+🔄 **Still Required**: Update the following in your `.env` file:
 
 ```bash
-# Copy environment template
-cp .env.example .env
+# Your development store URL
+SHOP=your-development-store.myshopify.com
 
-# Edit .env with your credentials
+# SendGrid configuration (get from SendGrid dashboard)
+SENDGRID_API_KEY=your_sendgrid_api_key
+MERCHANT_EMAIL=your-email@example.com
+FROM_EMAIL=noreply@yourdomain.com
+
+# Generate a secure JWT secret
+JWT_SECRET=your-secure-jwt-secret-here
 ```
-
-Required environment variables:
-- `SHOPIFY_API_KEY` - Your Shopify app's API key
-- `SHOPIFY_API_SECRET` - Your Shopify app's API secret
-- `SENDGRID_API_KEY` - SendGrid API key for emails
-- `MERCHANT_EMAIL` - Email to receive wholesale applications
-- `FROM_EMAIL` - Sender email for notifications
-- `JWT_SECRET` - Secret for token generation (change in production)
 
 ### 2. App Proxy Setup
 
