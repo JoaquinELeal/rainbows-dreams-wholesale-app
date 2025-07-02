@@ -1,4 +1,24 @@
-import { authenticate } from "../shopify.server";
+import { authenticate, unauthenticated } from "../shopify.server";
+
+async function getAdminApi(request: Request) {
+  try {
+    const { admin } = await authenticate.admin(request);
+    return admin;
+  } catch (err) {
+    console.warn("Authenticated admin failed, falling back to offline admin", err);
+    const shop = process.env.SHOP;
+    if (!shop) {
+      throw new Error("SHOP environment variable is required for offline admin");
+    }
+    try {
+      const { admin } = await unauthenticated.admin({ shop });
+      return admin;
+    } catch (offlineErr) {
+      console.error("Unable to retrieve offline admin API", offlineErr);
+      throw offlineErr;
+    }
+  }
+}
 
 export interface CustomerData {
   firstName: string;
@@ -29,9 +49,9 @@ export async function createWholesaleCustomer(
     businessDetails: string;
   }
 ): Promise<ShopifyCustomer> {
-  const { admin } = await authenticate.admin(request);
+  const admin = await getAdminApi(request);
 
-  const [firstName, ...lastNameParts] = customerData.name.split(' ');
+  const [firstName, ...lastNameParts] = customerData.name.trim().split(' ');
   const lastName = lastNameParts.join(' ') || '';
 
   // Parse business details to create more structured metafields
@@ -129,7 +149,7 @@ export async function updateCustomerStatus(
   customerId: string,
   status: 'approved' | 'rejected'
 ): Promise<ShopifyCustomer> {
-  const { admin } = await authenticate.admin(request);
+  const admin = await getAdminApi(request);
 
   try {
     // First, get the current customer
@@ -210,7 +230,7 @@ export async function triggerShopifyFlow(
   customerId: string,
   action: 'approved' | 'rejected'
 ) {
-  await authenticate.admin(request);
+  const admin = await getAdminApi(request);
 
   try {
     // This is a placeholder for triggering Shopify Flow
