@@ -8,10 +8,10 @@ async function getAdminApi(request: Request) {
     console.warn("Authenticated admin failed, falling back to offline admin", err);
     const shop = process.env.SHOP;
     if (!shop) {
-      throw new Error("SHOP environment variable is required for offline admin");
+      throw new Error("SHOP environment variable is required for offline admin. Please check your .env file.");
     }
     try {
-      const { admin } = await unauthenticated.admin({ shop });
+      const { admin } = await unauthenticated.admin(shop);
       return admin;
     } catch (offlineErr) {
       console.error("Unable to retrieve offline admin API", offlineErr);
