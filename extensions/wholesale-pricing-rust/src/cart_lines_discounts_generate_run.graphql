@@ -1,0 +1,21 @@
+query Input {
+  cart {
+    lines {
+      id
+      cost {
+        subtotalAmount {
+          amount
+        }
+      }
+      quantity
+    }
+    buyerIdentity {
+      customer {
+        hasAnyTag(tags: ["wholesale"])
+      }
+    }
+  }
+  discount {
+    discountClasses
+  }
+}

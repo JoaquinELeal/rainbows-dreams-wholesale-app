@@ -1,0 +1,15 @@
+[package]
+name = "wholesale-pricing-rust"
+version = "1.0.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+shopify_function = "1.1.1"
+
+[profile.release]
+lto = true
+opt-level = "z"
+strip = true
