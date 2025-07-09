@@ -3,11 +3,12 @@
 client_id = "b1b6cbd8ca25aeed3429ede3631985b7"
 name = "rainbows&dreams-wholesale-app"
 handle = "rainbows-dreams-wholesale-app"
-application_url = "https://your-app-url.ngrok.io/"
+application_url = "https://will-rv-php-bedford.trycloudflare.com"
 embedded = true
 
 [build]
 include_config_on_deploy = true
+automatically_update_urls_on_dev = true
 
 [webhooks]
 api_version = "2025-07"
@@ -25,7 +26,7 @@ api_version = "2025-07"
 scopes = "read_customers,write_customers,read_orders,write_orders,read_products,write_products"
 
 [auth]
-redirect_urls = [ "https://your-app-url.ngrok.io/api/auth" ]
+redirect_urls = ["https://will-rv-php-bedford.trycloudflare.com/auth/callback", "https://will-rv-php-bedford.trycloudflare.com/auth/shopify/callback", "https://will-rv-php-bedford.trycloudflare.com/api/auth/callback"]
 
 [pos]
 embedded = false

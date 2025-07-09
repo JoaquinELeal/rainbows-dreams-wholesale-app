@@ -1,5 +1,7 @@
-import type { RegistrationStatus } from "@prisma/client";
 import prisma from '../db.server';
+
+// Define the enum type locally based on Prisma schema
+type RegistrationStatus = "PENDING" | "APPROVED" | "REJECTED";
 
 export interface CreateRegistrationData {
   shopifyCustomerId: string;

@@ -12,6 +12,9 @@ interface LoaderData {
   stats: Awaited<ReturnType<typeof getRegistrationStats>>;
 }
 
+// extract the element type of pendingRegistrations array
+type Registration = LoaderData['pendingRegistrations'][number];
+
 export async function loader({ request }: LoaderFunctionArgs) {
   // Authenticate admin user
   await authenticate.admin(request);
@@ -231,8 +234,9 @@ export default function WholesaleDashboard() {
                       Actions
                     </th>
                   </tr>
-                </thead>                  <tbody className="bg-white divide-y divide-gray-200">
-                    {pendingRegistrations.map((registration) => {
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {pendingRegistrations.map((registration: Registration) => {
                       const isProcessing = actionFetcher.state === 'submitting';
                       
                       return (

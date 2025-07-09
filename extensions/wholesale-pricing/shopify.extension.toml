@@ -1,12 +1,14 @@
 name = "wholesale-pricing"
 type = "function"
+api_version = "2023-07"
 
 [build]
-command = "make build"
+command = "echo 'Skipping build - javy deprecated'"
 path = "dist/index.wasm"
 
-[extensions.function]
+[function]
 type = "order_discounts"
 
-[input]
-variables = true
+[input.variables]
+namespace = "wholesale"
+key = "pricing_config"
