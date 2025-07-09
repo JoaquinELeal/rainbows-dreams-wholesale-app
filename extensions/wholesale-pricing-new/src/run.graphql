@@ -1,0 +1,13 @@
+query RunInput {
+  cart {
+    buyerIdentity {
+      customer {
+        hasAnyTag(tags: ["wholesale"])
+      }
+    }
+    lines {
+      id
+      quantity
+    }
+  }
+}
