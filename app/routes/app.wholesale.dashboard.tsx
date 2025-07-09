@@ -236,7 +236,7 @@ export default function WholesaleDashboard() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {pendingRegistrations.map((registration: Registration) => {
+                  {pendingRegistrations.map((registration: any) => {
                       const isProcessing = actionFetcher.state === 'submitting';
                       
                       return (
