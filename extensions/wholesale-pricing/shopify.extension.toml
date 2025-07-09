@@ -3,7 +3,7 @@ type = "function"
 api_version = "2023-07"
 
 [build]
-command = "echo 'Skipping build - javy deprecated'"
+command = "echo 'Extension disabled - needs Rust toolchain'"
 path = "dist/index.wasm"
 
 [function]

@@ -1,0 +1,7 @@
+query Input {
+  discountNode {
+    metafield(namespace: "$app:wholesale-pricing-new", key: "function-configuration") {
+      jsonValue
+    }
+  }
+}
