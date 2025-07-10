@@ -1,8 +1,6 @@
 {
   "buildCommand": "prisma generate && remix vite:build",
   "installCommand": "npm install",
-  "framework": null,
-  "outputDirectory": "build/client",
   "functions": {
     "api/index.js": {
       "maxDuration": 30
@@ -17,5 +15,6 @@
   "env": {
     "PRISMA_CLI_QUERY_ENGINE_TYPE": "binary",
     "PRISMA_CLIENT_ENGINE_TYPE": "binary"
-  }
+  },
+  "alias": ["rainbows-dreams-wholesale-app.vercel.app"]
 }
