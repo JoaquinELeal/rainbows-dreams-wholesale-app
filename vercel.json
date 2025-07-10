@@ -3,7 +3,7 @@
   "env": {
     "PRISMA_CLI_QUERY_ENGINE_TYPE": "binary",
     "PRISMA_CLIENT_ENGINE_TYPE": "binary",
-    "DATABASE_URL": "postgresql://neondb_owner:npg_VhkGL5eXoT7S@ep-long-waterfall-ae5i91sg-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+    "DATABASE_URL": "postgresql://neondb_owner:npg_0xqYkw5KQigW@ep-young-salad-ae9wn5dx-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
   },
   "alias": ["rainbows-dreams-wholesale-app.vercel.app"]
 }
