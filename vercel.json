@@ -1,0 +1,21 @@
+{
+  "buildCommand": "prisma generate && remix vite:build",
+  "installCommand": "npm install",
+  "framework": null,
+  "outputDirectory": "build/client",
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 30
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.js"
+    }
+  ],
+  "env": {
+    "PRISMA_CLI_QUERY_ENGINE_TYPE": "binary",
+    "PRISMA_CLIENT_ENGINE_TYPE": "binary"
+  }
+}

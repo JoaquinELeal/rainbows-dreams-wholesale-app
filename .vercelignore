@@ -1,0 +1,17 @@
+# Development files
+.env
+.env.local
+.env.example
+dev.sqlite*
+
+# Build artifacts that should be regenerated
+node_modules
+.cache
+
+# Keep prisma schema and migrations
+!prisma/schema.prisma
+!prisma/migrations
+
+# Keep important config files
+!vercel.json
+!package.json
