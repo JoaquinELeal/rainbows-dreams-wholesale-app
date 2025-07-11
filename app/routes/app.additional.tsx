@@ -6,7 +6,7 @@ import {
   List,
   Page,
   Text,
-  BlockStack,
+  BlockStack
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 
@@ -65,7 +65,7 @@ export default function AdditionalPage() {
   );
 }
 
-function Code({ children }: { children: React.ReactNode }) {
+function Code({ children }: { children: any }) {
   return (
     <Box
       as="span"
