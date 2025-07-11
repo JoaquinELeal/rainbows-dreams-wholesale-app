@@ -2,35 +2,31 @@
 
 client_id = "b1b6cbd8ca25aeed3429ede3631985b7"
 name = "rainbows&dreams-wholesale-app"
-handle = "rainbows-dreams-wholesale-app"
-application_url = "https://rainbows-dreams-wholesale-ggwynu0cr-rainbows-and-dreams-shop.vercel.app"
+handle = "rainbows&dreams-wholesale-app"
+application_url = "https://rainbows-dreams-wholesale-app-rainbows-and-dreams-shop.vercel.app"
 embedded = true
 
 [build]
-automatically_update_urls_on_dev = true
 include_config_on_deploy = true
+automatically_update_urls_on_dev = true
 
 [webhooks]
 api_version = "2025-07"
 
   [[webhooks.subscriptions]]
-  topics = [ "app/scopes_update" ]
-  uri = "/webhooks/app/scopes_update"
+  topics = [ "app/uninstalled" ]
+  uri = "https://rainbows-dreams-wholesale-app-rainbows-and-dreams-shop.vercel.app/webhooks/app/uninstalled"
 
   [[webhooks.subscriptions]]
-  topics = [ "app/uninstalled" ]
-  uri = "/webhooks/app/uninstalled"
+  topics = [ "app/scopes_update" ]
+  uri = "https://rainbows-dreams-wholesale-app-rainbows-and-dreams-shop.vercel.app/webhooks/app/scopes_update"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "read_customers,read_orders,read_products,write_customers,write_orders,write_products"
+scopes = "read_customers,write_customers,read_orders,write_orders,read_products,write_products"
 
 [auth]
-redirect_urls = [
-  "https://rainbows-dreams-wholesale-ggwynu0cr-rainbows-and-dreams-shop.vercel.app/auth/callback",
-  "https://rainbows-dreams-wholesale-ggwynu0cr-rainbows-and-dreams-shop.vercel.app/auth/shopify/callback",
-  "https://rainbows-dreams-wholesale-ggwynu0cr-rainbows-and-dreams-shop.vercel.app/api/auth/callback"
-]
+redirect_urls = ["https://rainbows-dreams-wholesale-app-rainbows-and-dreams-shop.vercel.app/auth/callback", "https://rainbows-dreams-wholesale-app-rainbows-and-dreams-shop.vercel.app/auth/shopify/callback", "https://rainbows-dreams-wholesale-app-rainbows-and-dreams-shop.vercel.app/api/auth/callback"]
 
 [pos]
 embedded = false
